@@ -1,27 +1,12 @@
-import java.util.LinkedList;
-
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
-        String input = "level";
+        String input = "malayalam";
 
-        LinkedList<Character> list = new LinkedList<>();
-
-        for (char c : input.toCharArray()) {
-            list.add(c);
-        }
-
-        boolean isPalindrome = true;
-
-        while (list.size() > 1) {
-            if (list.removeFirst() != list.removeLast()) {
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        System.out.println("Palindrome Checker App - UC8");
+        System.out.println("Palindrome Checker App - UC9");
         System.out.println("Input String: " + input);
+
+        boolean isPalindrome = checkRecursive(input, 0, input.length() - 1);
 
         if (isPalindrome) {
             System.out.println("Result: The string is a palindrome.");
@@ -29,6 +14,18 @@ public class PalindromeCheckerApp {
             System.out.println("Result: The string is not a palindrome.");
         }
 
-        System.out.println("Exiting UC8 flow...");
+        System.out.println("Exiting UC9 flow...");
+    }
+
+    public static boolean checkRecursive(String str, int start, int end) {
+        if (start >= end) {
+            return true;
+        }
+
+        if (str.charAt(start) != str.charAt(end)) {
+            return false;
+        }
+
+        return checkRecursive(str, start + 1, end - 1);
     }
 }
