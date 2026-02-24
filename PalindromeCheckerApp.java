@@ -2,22 +2,31 @@
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
-        String input = "madam";
-        String reversed = "";
+        String input = "Madam";
 
-        for (int i = input.length() - 1; i >= 0; i--) {
-            reversed = reversed + input.charAt(i);
+        String standardized = input.toLowerCase();
+        char[] chars = standardized.toCharArray();
+
+        int start = 0;
+        int end = chars.length - 1;
+        boolean isPalindrome = true;
+
+        while (start < end) {
+            if (chars[start] != chars[end]) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
         }
 
-        System.out.println("Palindrome Checker App - UC3");
-        System.out.println("input String: " + input);
-        System.out.println("Reversed String: " + reversed);
-
-        if (input.equals(reversed)) {
-            System.out.println("Result: The string is a palindrome.");
+        System.out.println("Palindrome Checker App - UC4");
+        System.out.println("Original Input: " + input);
+        if (isPalindrome) {
+            System.out.println("Result: The string is a palindrome (Case-Insensitive).");
         } else {
             System.out.println("Result: The string is not a palindrome.");
         }
-        System.out.println("Exiting UC3 flow...");
+        System.out.println("Exiting UC4 flow...");
     }
 }
