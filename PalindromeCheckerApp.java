@@ -3,24 +3,21 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
         String input = "madam";
-        boolean isPalindrome = true;
-        int length = input.length();
+        String reversed = "";
 
-        for (int i = 0; i < length / 2; i++) {
-            if (input.charAt(i) != input.charAt(length - 1 - i)) {
-                isPalindrome = false;
-                break;
-            }
+        for (int i = input.length() - 1; i >= 0; i--) {
+            reversed = reversed + input.charAt(i);
         }
 
-        System.out.println("Palindrome Checker App - UC2");
-        System.out.println("Checking string: " + input);
+        System.out.println("Palindrome Checker App - UC3");
+        System.out.println("input String: " + input);
+        System.out.println("Reversed String: " + reversed);
 
-        if (isPalindrome) {
+        if (input.equals(reversed)) {
             System.out.println("Result: The string is a palindrome.");
         } else {
             System.out.println("Result: The string is not a palindrome.");
         }
-        System.out.println("Exiting UC2 flow...");
+        System.out.println("Exiting UC3 flow...");
     }
 }
