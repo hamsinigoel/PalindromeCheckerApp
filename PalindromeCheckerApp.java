@@ -1,20 +1,23 @@
-public class PalindromeCheckerApp {
+public class UseCase10PalindromeCheckerApp {
 
     public static void main(String[] args) {
-        String input = "malayalam";
+        String input = "Malay Alam";
 
-        System.out.println("Palindrome Checker App - UC9");
+        System.out.println("Palindrome Checker App - UC10");
         System.out.println("Input String: " + input);
 
-        boolean isPalindrome = checkRecursive(input, 0, input.length() - 1);
+        // Normalize string: remove spaces and convert to lowercase
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+
+        boolean isPalindrome = checkRecursive(normalized, 0, normalized.length() - 1);
 
         if (isPalindrome) {
-            System.out.println("Result: The string is a palindrome.");
+            System.out.println("Result: The string is a palindrome (ignoring spaces and case).");
         } else {
             System.out.println("Result: The string is not a palindrome.");
         }
 
-        System.out.println("Exiting UC9 flow...");
+        System.out.println("Exiting UC10 flow...");
     }
 
     public static boolean checkRecursive(String str, int start, int end) {
