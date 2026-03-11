@@ -1,25 +1,56 @@
 import java.util.Stack;
-import java.util.Deque;
-import java.util.ArrayDeque;
 
-// Strategy Interface
-interface PalindromeStrategy {
-    boolean checkPalindrome(String input);
-}
+public class UseCase13PalindromeCheckerApp {
 
-// Stack Strategy Implementation
-class StackStrategy implements PalindromeStrategy {
+    public static void main(String[] args) {
 
-    public boolean checkPalindrome(String input) {
-
+        String input = "Malay Alam";
         String normalized = input.replaceAll("\\s+", "").toLowerCase();
+
+        System.out.println("Palindrome Checker App - UC13");
+        System.out.println("Input String: " + input);
+        System.out.println();
+
+        // Reverse String Method
+        long start1 = System.nanoTime();
+        boolean result1 = checkUsingReverse(normalized);
+        long end1 = System.nanoTime();
+        long time1 = end1 - start1;
+
+        // Stack Method
+        long start2 = System.nanoTime();
+        boolean result2 = checkUsingStack(normalized);
+        long end2 = System.nanoTime();
+        long time2 = end2 - start2;
+
+        // Two Pointer Method
+        long start3 = System.nanoTime();
+        boolean result3 = checkUsingTwoPointer(normalized);
+        long end3 = System.nanoTime();
+        long time3 = end3 - start3;
+
+        System.out.println("Reverse Method Result: " + result1 + " | Time: " + time1 + " ns");
+        System.out.println("Stack Method Result: " + result2 + " | Time: " + time2 + " ns");
+        System.out.println("Two Pointer Method Result: " + result3 + " | Time: " + time3 + " ns");
+
+        System.out.println("\nExiting UC13 flow...");
+    }
+
+    // Method 1: Reverse String
+    public static boolean checkUsingReverse(String str) {
+        String reversed = new StringBuilder(str).reverse().toString();
+        return str.equals(reversed);
+    }
+
+    // Method 2: Stack
+    public static boolean checkUsingStack(String str) {
         Stack<Character> stack = new Stack<>();
 
-        for (char c : normalized.toCharArray()) {
+        for (char c : str.toCharArray()) {
             stack.push(c);
         }
 
-        for (char c : normalized.toCharArray()) {
+        for (char c : str.toCharArray()) {
             if (c != stack.pop()) {
                 return false;
             }
@@ -27,68 +58,20 @@ class StackStrategy implements PalindromeStrategy {
 
         return true;
     }
-}
 
-// Deque Strategy Implementation
-class DequeStrategy implements PalindromeStrategy {
+    // Method 3: Two Pointer
+    public static boolean checkUsingTwoPointer(String str) {
+        int start = 0;
+        int end = str.length() - 1;
 
-    public boolean checkPalindrome(String input) {
-
-        String normalized = input.replaceAll("\\s+", "").toLowerCase();
-        Deque<Character> deque = new ArrayDeque<>();
-
-        for (char c : normalized.toCharArray()) {
-            deque.add(c);
-        }
-
-        while (deque.size() > 1) {
-            if (deque.removeFirst() != deque.removeLast()) {
+        while (start < end) {
+            if (str.charAt(start) != str.charAt(end)) {
                 return false;
             }
+            start++;
+            end--;
         }
 
         return true;
-    }
-}
-
-// Context Class
-class PalindromeChecker {
-
-    private PalindromeStrategy strategy;
-
-    public PalindromeChecker(PalindromeStrategy strategy) {
-        this.strategy = strategy;
-    }
-
-    public boolean checkPalindrome(String input) {
-        return strategy.checkPalindrome(input);
-    }
-}
-
-// Main Application
-public class UseCase12PalindromeCheckerApp {
-
-    public static void main(String[] args) {
-
-        String input = "Malay Alam";
-
-        System.out.println("Palindrome Checker App - UC12");
-        System.out.println("Input String: " + input);
-
-        // Choose strategy dynamically
-        PalindromeStrategy strategy = new StackStrategy();
-        // PalindromeStrategy strategy = new DequeStrategy();
-
-        PalindromeChecker checker = new PalindromeChecker(strategy);
-
-        boolean isPalindrome = checker.checkPalindrome(input);
-
-        if (isPalindrome) {
-            System.out.println("Result: The string is a palindrome (ignoring spaces and case).");
-        } else {
-            System.out.println("Result: The string is not a palindrome.");
-        }
-
-        System.out.println("Exiting UC12 flow...");
     }
 }
